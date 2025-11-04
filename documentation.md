@@ -2,7 +2,7 @@
 
 <p><b>Day - 1 (4-11-25) : </b>This is me starting to work on this project and this is the code i've written and understood so far from the lecture, i'll try to document it down to keep track of my progress and changes.</p>
 
-![alt text](image-1.png)
+![alt text](documentation-images/image-1.png)
 
 From the beginning i first initialised our canvas and my context window, context window is set to be '2d' because that was what i needed for this game and the canvas for the game to be played on.
 
