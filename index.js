@@ -15,6 +15,6 @@ image.src = './images/game_map.png';
 
 
 image.onload = () => {
-    context.drawImage(image, 0, 0);
+    context.drawImage(image, -800, -75);
 }
 
