@@ -26,19 +26,19 @@ That is it for the Day - 1.
 
 this was the program i had just written :
 
-![alt text](image.png)
+![alt text](documentation-images/image.png)
 
 so the issue i am facing with this is that the player image is relatively smaller than my map and what this leads to is pre rendering of our image and then on top of it, it renders our map so our player image gets overdrawn and causes to not be visible in the viewport. just thought i should document this.
 
 <b>The fix :</b>
 
-![alt text](image-1.png)
+![alt text](documentation-images/image_doc.png)
 
 what this does is that it renders our map and player image at the same time and also i have shifted the playerImage variable on top of our arrow function.
 
 <b>Player Image Cropping and Position Set :</b>
 
-![alt text](Screenshot_20251111_222011.jpeg)
+![alt text](documentation-images/Screenshot_20251111_222011.jpeg)
 
 As you can see i have added some new parameters inside the drawImage function for the playerImage,
 <ul>
@@ -52,7 +52,21 @@ As you can see i have added some new parameters inside the drawImage function fo
             </ul>
     </li>
     <li>
-        Then as you can see two new parameters which includes
+        Then as you can see the last 4 parameters are actually the real co-ordinates of our player image which tells us where our image is going to be rendered at.
+        The first two parameters are the X and Y Co-ordinates of the position of the rendered image.
     </li>
 </ul>
+</section>
+
+<section>
+<h3><b>Day - 3 (12-11-25) : </b></h3>
+The last day i stopped after the cropping part of the playerImage. And after the last changes the issue we have is this
+
+![alt text](documentation-images/Screenshot_20251112_231846.jpeg)
+
+the player is not being rendered in the center of our canvas which is not good.
+
+<b>The fix : </b> We gotta divide the X position co-ordinate of our image by a number like 4 or 3 and divide the overall value by value near by 2 so that it would move a little closer to the center. By far i did wrote this
+
+line 24 - canvas.width / 2 - (playerImage.width / 3) / 1.75
 </section>

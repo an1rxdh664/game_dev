@@ -21,7 +21,7 @@ image.onload = () => {
         playerImage.width / 4,
         playerImage.height,
 
-        canvas.width / 2 - playerImage.width / 2, 
+        canvas.width / 2 - (playerImage.width / 3) / 1.75, 
         canvas.height / 2 - playerImage.height / 2,
 
         playerImage.width / 4,
