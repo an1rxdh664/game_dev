@@ -32,3 +32,17 @@ image.onload = () => {
 // playerImage.onload = () => {
 //     context.drawImage(playerImage, 0, 0);
 // } // Documented about it
+
+// Player movement through keys
+window.addEventListener('keydown', (event) => {
+    switch(event.key){
+        case 'w' :
+            break;
+        case 'a' :
+            break;
+        case 's' :
+            break;
+        case 'd' :
+            break;
+    }
+})
