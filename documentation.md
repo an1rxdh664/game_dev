@@ -69,4 +69,37 @@ the player is not being rendered in the center of our canvas which is not good.
 <b>The fix : </b> We gotta divide the X position co-ordinate of our image by a number like 4 or 3 and divide the overall value by value near by 2 so that it would move a little closer to the center. By far i did wrote this
 
 line 24 - canvas.width / 2 - (playerImage.width / 3) / 1.75
+
+<b>Continuation of Day 3 -</b>
+So the changes i have made so far are :
+
+
+<img src="documentation-images/Screenshot_20251113_111800.jpeg" style="width: 750px;">
+
+initialised a function named 'animate()' which is responsible for the animation of our playerImage while playing the game.
+
+shifted the entire content of the image.onload() function into this animate function.
+
+the window.requestAnimationFrame() method just takes the animate() function itself as an argument and calls it recursively.
+
+and after that i have initialised a class :
+
+<img src="documentation-images/Screenshot_20251113_111948.jpeg" style="width: 500px;">
+
+this draws our background image so that we can animate it later, one of the reasons i made this class was because we are gonna have to animate the background later in the game too when a player is moving across the screen and in order to do that i gotta have the X and Y position values stored in a variable that i can manipulate later and not constants.
+
+
+Moving on to assiging listeners to the key downs of a player and in order to do that i initialised a object named 'Keys' which holds the values of different keys pressed by an player in order to move around the map.
+
+<div style="display: flex; flex-direction: row; gap: 25px;">
+    <img src="documentation-images/Screenshot_20251113_112819.jpeg" style="width: 300px;">
+    <img src="documentation-images/Screenshot_20251113_112847.jpeg" style="width: 300px;">
+    <img src="documentation-images/Screenshot_20251113_113616.jpeg" style="width: 300px;">
+</div>
+
+and now using the eventListener the pressed property of each key gets changed to be true. The reason there are two event listeners is that the first one listens to the keydowns of the keyboard and sets the value for the key being pressed at the moment to be true, but the issue with that is that now the key pressed property is set to be true for the whole time, even when the player is not pressing the key. So then comes in the second eventListener which listens to the keyups from the keyboard and set the pressed property of the key which is not being pressed now to be false.
+
+
+So far now the player is moving across the map using keyboard keys. Next i gotta work on the object collissions of the player with map objects.
+
 </section>
