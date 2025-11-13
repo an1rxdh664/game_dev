@@ -105,4 +105,20 @@ So far now the player is moving across the map using keyboard keys. Next i gotta
 alright so a little issue i can face is that if i press a key while already holding another key, like :
     if i am pressing s and then i pressed d without letting go of s, it does not listens to the d-key that i just pressed it keeps moving in the s-key direction. So in order to fix that i gotta add a listener that registers the last key that is pressed.
 
+<h2>Collissions :</h2>
+
+<img src="documentation-images/Screenshot_20251113_123347.jpeg">
+
+by far what i have done is that i have exported my game_map file from TILED as an JSON into my project and from there i have imported the collisions array and sliced it into sub arrays, each containing 70 elements in it.
+
+and then i have initialised a class named Boundary, which draws red boxes (boundary) over our map, the constructor inside it assigns the values of the position of the boundary box and it's width and height. And then the draw() function is supposed to draw those boxes on the map.
+
+<img src="documentation-images/Screenshot_20251113_125657.jpeg">
+
+so what this does is that it that it loops over the collisionsMap array and for each of the element inside the array (which is the sub array of 70 elements) it again loops over that row.
+And for each row i push the element inside the boundaries array which creates a new boundary everytime and the position for the constructor is set to be the x and y coordinate to be multiplied into the Boundary width and height. Which are set to be static variables in the boundary class so that we can manipulate them later and avoid multiplying by a constant.
+
+but the issue with this is that if we console log the boundaries array we can see at least 2800 elements inside it, what that means is that the whole map se being rendered again which is not good, what we want is that the boundary to be rendered at the points where the value is equals to 1025 (value for collision in collisions array)
+
+to fix this i just added an if condition inside the row.forEach() which pushes a element into the boundaries array only when the symbol is equal to 1025.
 </section>

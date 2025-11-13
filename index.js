@@ -4,9 +4,52 @@ const context = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
-context.fillStyle = 'white'; 
-context.fillRect(0, 0, canvas.width, canvas.height); 
+// creating a collisions map for the collisions of the player-to-map boundaries
 
+const collisionsMap = [];
+
+for(let i = 0; i < collisions.length; i += 70) {
+    collisionsMap.push(collisions.slice(i, i + 70));
+    // what this does is that it slices the whole collisions array into sub arrays, each containing 70 elements inside it.
+    // and then pushes that sliced array into the collisionsMap array.
+}
+
+class Boundary{
+    static width = 48;
+    static height = 48;
+    constructor({position}){
+        this.position = position;
+        this.width = 48
+        this.height = 48 
+    }
+
+    draw(){
+        context.fillStyle = 'red';
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
+const boundaries = [];
+
+const offset = {
+    x: -800,
+    y: -100
+}
+
+collisionsMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+        if(symbol === 1025){
+            boundaries.push(
+                new Boundary({
+                    position: {
+                        x: j * Boundary.width + offset.x,
+                        y: i * Boundary.height + offset.y
+                    }
+                })
+            )
+        }
+    })
+})
 const image = new Image();
 image.src = './images/game_map.png';
 
@@ -34,8 +77,8 @@ class Sprite{
 
 const background = new Sprite({
     position: {
-        x: -800,
-        y: -100
+        x: offset.x,
+        y: offset.y
     },
     image: image
 })
@@ -54,6 +97,11 @@ function animate(){
     window.requestAnimationFrame(animate);
     // what this does it that it takes a function as an argument and calls it recursively
     background.draw() // calls the draw function from the background object we created.
+
+    boundaries.forEach(boundary => {
+        boundary.draw();
+    })
+
     context.drawImage(playerImage,
         0,
         0,
