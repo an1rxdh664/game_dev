@@ -102,4 +102,7 @@ and now using the eventListener the pressed property of each key gets changed to
 
 So far now the player is moving across the map using keyboard keys. Next i gotta work on the object collissions of the player with map objects.
 
+alright so a little issue i can face is that if i press a key while already holding another key, like :
+    if i am pressing s and then i pressed d without letting go of s, it does not listens to the d-key that i just pressed it keeps moving in the s-key direction. So in order to fix that i gotta add a listener that registers the last key that is pressed.
+
 </section>

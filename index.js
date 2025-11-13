@@ -68,28 +68,33 @@ function animate(){
     );
     // now to animate our playerImage recursively, i have to shift the image.onload() function into my animate function
 
-    if(keys.w.pressed) background.position.y += 3;
-    else if(keys.a.pressed) background.position.x += 3;
-    else if(keys.s.pressed) background.position.y -= 3;
-    else if(keys.d.pressed) background.position.x -= 3;
+    if(keys.w.pressed && lastKey === 'w') background.position.y += 3;
+    else if(keys.a.pressed && lastKey === 'a') background.position.x += 3;
+    else if(keys.s.pressed && lastKey === 's') background.position.y -= 3;
+    else if(keys.d.pressed && lastKey === 'd') background.position.x -= 3;
     // these if else statements takes care of the background position when keys are being pressed
 }
 animate()
 // now for our player to be animated everysingle time, we have to call this function recursively until a user asks to stop it
 
+lastKey = '';
 window.addEventListener('keydown', (event) => {
     switch(event.key){
         case 'w' :
-            keys.w.pressed = true
+            keys.w.pressed = true;
+            lastKey = 'w';
             break;
         case 'a' :
-            keys.a.pressed = true
+            keys.a.pressed = true;
+            lastKey = 'a';
             break;
         case 's' :
-            keys.s.pressed = true
+            keys.s.pressed = true;
+            lastKey = 's';
             break;
         case 'd' :
-            keys.d.pressed = true
+            keys.d.pressed = true;
+            lastKey = 'd';
             break;
     }
 })
