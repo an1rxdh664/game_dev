@@ -122,3 +122,27 @@ but the issue with this is that if we console log the boundaries array we can se
 
 to fix this i just added an if condition inside the row.forEach() which pushes a element into the boundaries array only when the symbol is equal to 1025.
 </section>
+
+<section>
+<h3><b>Day - 4 (16-11-25) : </b></h3>
+<p>
+Began working again on this project and today the goal is to finish off collisions of player-to-map boundaries and till now i have created a testBoundary element, 400 x 400 pixels, that is placed on our map to check for collisions instaed of rendering out the whole boundary array.
+</p>
+
+<div style="display: flex; flex-direction: row; gap: 50px; width: 800px">
+<div>
+<img src="documentation-images/Screenshot_20251116_103528.jpeg" style="width: 400px;">
+</div>
+<div style="text-align: center;">
+<h3>Output : </h3>
+<img src="documentation-images/Screenshot_20251116_103853.jpeg" style="width: 320px;">
+</div>
+</div>
+
+<p>
+Now when i was moving the player, the boundary block was also moving along with the player and to fix that what i did was, that i modified the if block for the eventListener of the player movement block.
+and added a line which also changes the x and y of the boundary block along with the background.
+</p>
+
+
+</section>

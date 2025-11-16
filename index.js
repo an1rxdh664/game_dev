@@ -91,6 +91,15 @@ const keys = {
 }
 // this object is made to listen to the key pressed by the player and by default set the pressed property to be false.
 
+const testBoundary = new Boundary({
+    position : {
+        x: 400,
+        y: 400
+    }
+})
+
+const movables = [background, testBoundary];
+
 // now to animate our player image we initialise a function
 function animate(){
     
@@ -98,9 +107,11 @@ function animate(){
     // what this does it that it takes a function as an argument and calls it recursively
     background.draw() // calls the draw function from the background object we created.
 
-    boundaries.forEach(boundary => {
-        boundary.draw();
-    })
+    // boundaries.forEach(boundary => {
+    //     boundary.draw();
+    // })
+
+    testBoundary.draw();
 
     context.drawImage(playerImage,
         0,
@@ -116,10 +127,23 @@ function animate(){
     );
     // now to animate our playerImage recursively, i have to shift the image.onload() function into my animate function
 
-    if(keys.w.pressed && lastKey === 'w') background.position.y += 3;
-    else if(keys.a.pressed && lastKey === 'a') background.position.x += 3;
-    else if(keys.s.pressed && lastKey === 's') background.position.y -= 3;
-    else if(keys.d.pressed && lastKey === 'd') background.position.x -= 3;
+    if(keys.w.pressed && lastKey === 'w') {
+        movables.forEach((movable) => {
+            movable.position.y += 3
+        })
+    } else if(keys.a.pressed && lastKey === 'a') {
+        movables.forEach((movable) => {
+            movable.position.x += 3
+        })
+    } else if(keys.s.pressed && lastKey === 's') {
+        movables.forEach((movable) => {
+            movable.position.y -= 3
+        })
+    } else if(keys.d.pressed && lastKey === 'd') {
+        movables.forEach((movable) => {
+            movable.position.x -= 3
+        })
+    }
     // these if else statements takes care of the background position when keys are being pressed
 }
 animate()
