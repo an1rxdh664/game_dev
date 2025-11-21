@@ -1,7 +1,7 @@
 <h1>Game-Dev Documentation</h1>
 
 <section>
-<h3><b>Day - 1 (4-11-25) : </b></h3><p>This is me starting to work on this project and this is the code i've written and understood so far from the lecture, i'll try to document it down to keep track of my progress and changes.</p>
+<h3 style="text-align: center; background-color: grey; color: black;"><b>Day - 1 (4-11-25) : </b></h3><p>This is me starting to work on this project and this is the code i've written and understood so far from the lecture, i'll try to document it down to keep track of my progress and changes.</p>
 
 ![alt text](documentation-images/image-1.png)
 
@@ -22,7 +22,7 @@ That is it for the Day - 1.
 </section>
 
 <section>
-<h3><b>Day - 2 (11-11-25) : </b></h3>idk where i was for the last 7 days, so i just started working on this project again and this time i am working on rendering my player image.
+<h3 style="text-align: center; background-color: grey; color: black;"><b>Day - 2 (11-11-25) : </b></h3>idk where i was for the last 7 days, so i just started working on this project again and this time i am working on rendering my player image.
 
 this was the program i had just written :
 
@@ -36,7 +36,7 @@ so the issue i am facing with this is that the player image is relatively smalle
 
 what this does is that it renders our map and player image at the same time and also i have shifted the playerImage variable on top of our arrow function.
 
-<b>Player Image Cropping and Position Set :</b>
+<b style="background-color: yellow; color: black; padding-left: 5px; padding-right: 5px;">Player Image Cropping and Position Set :</b>
 
 ![alt text](documentation-images/Screenshot_20251111_222011.jpeg)
 
@@ -59,7 +59,7 @@ As you can see i have added some new parameters inside the drawImage function fo
 </section>
 
 <section>
-<h3><b>Day - 3 (12-11-25) : </b></h3>
+<h3 style="text-align: center;"><b>Day - 3 (12-11-25) : </b></h3>
 The last day i stopped after the cropping part of the playerImage. And after the last changes the issue we have is this
 
 ![alt text](documentation-images/Screenshot_20251112_231846.jpeg)
@@ -124,7 +124,7 @@ to fix this i just added an if condition inside the row.forEach() which pushes a
 </section>
 
 <section>
-<h3><b>Day - 4 (16-11-25) : </b></h3>
+<h3 style="text-align: center; background-color: grey; color: black;"><b>Day - 4 (16-11-25) : </b></h3>
 <p>
 Began working again on this project and today the goal is to finish off collisions of player-to-map boundaries and till now i have created a testBoundary element, 400 x 400 pixels, that is placed on our map to check for collisions instaed of rendering out the whole boundary array.
 </p>
@@ -145,4 +145,23 @@ and added a line which also changes the x and y of the boundary block along with
 </p>
 
 
+</section>
+
+<br>
+
+<section>
+<h3 style="text-align: center; background-color: grey; color: black;"><b>Day - 5 (21-11-25) : </b></h3>    
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+
+<div class="text-container" style="width: 500px;">
+    <h4>Working on collisions : </h4> <p>Till now i have done some major changes in the program and i don't understand shit. But the only bit i could understand is that in order to make the boundary colission work, after all the changes, this if block checks if the left side of the boundary of our player image is greater or equal to the collision block's left boundary and same for the right side of the block and player. And when that condition matches, it logs the collision into the console. The last two conditions for y were added later because the issue was that the boundaries keep getting logged even if the player was not touching it but just was in it's line. So the additional condition checks the y-collision of the player and the boundary. Just to improve the readability of this line of code all these conditions are shifted inside a separate function.</p>
+</div>
+
+<div class="image-container" style="width: 600px;">
+    <img src="documentation-images/Screenshot_20251122_001725.jpeg" style="width: 600px;">
+    <img src="documentation-images/Screenshot_20251122_003207.jpeg" style="width: 600px; margin-top: 15px;">
+</div>
+
+</div>
+    
 </section>

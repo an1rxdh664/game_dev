@@ -95,7 +95,7 @@ class Sprite{
 const player = new Sprite({
     position: {
         x: canvas.width / 2 - (192 / 3) / 1.75,
-        y: canvas.height / 2 - 68 / 2
+        y: canvas.height / 2 - 1 / 2
     },
     image: playerImage,
     frames: {
@@ -119,14 +119,15 @@ const keys = {
 }
 // this object is made to listen to the key pressed by the player and by default set the pressed property to be false.
 
-const testBoundary = new Boundary({
-    position : {
-        x: 400,
-        y: 400
-    }
-})
+const movables = [background, ...boundaries];
 
-const movables = [background, testBoundary];
+function rectangularCollisions({rectangle1, rectangle2}){
+    return(rectangle1.position.x + rectangle1.width >= rectangle2.position.x && 
+        rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+        rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
+        rectangle1.position.y + rectangle1.height >= rectangle2.position.y
+    );
+}
 
 // now to animate our player image we initialise a function
 function animate(){
@@ -135,25 +136,37 @@ function animate(){
     // what this does it that it takes a function as an argument and calls it recursively
     background.draw() // calls the draw function from the background object we created.
 
-    // boundaries.forEach(boundary => {
-    //     boundary.draw();
-    // })
+    boundaries.forEach((boundary) => {
+        boundary.draw();        
+    })
 
-    testBoundary.draw();
     player.draw();
     
     // now to animate our playerImage recursively, i have to shift the image.onload() function into my animate function
 
-    if(player.position.x + player.width >= testBoundary.position.x 
-        && 
-        player.position.x <= testBoundary.position.x + testBoundary.width){
-        console.log('Colliding');
-    }
-
+    
+    let moving = true;
     if(keys.w.pressed && lastKey === 'w') {
-        movables.forEach((movable) => {
-            movable.position.y += 3
-        })
+        for(let i=0;i < boundaries.length;i++){
+            const boundary = boundaries[i];
+            if(rectangularCollisions({
+                rectangle1: player,
+                rectangle2: {...boundary, position: {
+                    x: boundary.position.x,
+                    y: boundary.position.y + 3
+                }}
+            })){
+                console.log('Colliding');
+                moving = false;
+                break;
+            }
+        }
+
+        if(moving){
+            movables.forEach((movable) => {
+                movable.position.y += 3
+            })
+        }
     } else if(keys.a.pressed && lastKey === 'a') {
         movables.forEach((movable) => {
             movable.position.x += 3
