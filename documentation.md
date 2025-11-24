@@ -165,3 +165,29 @@ and added a line which also changes the x and y of the boundary block along with
 </div>
     
 </section>
+
+<section>
+<h3 style="text-align: center; background-color: grey; color: black;"><b>Day - 6 (24-11-25) :</b></h3>
+<h2 style="text-align: center;">Learning about collission detection with rectangles </h2>
+
+So today i wanted to begin with learning about collissions before moving further in this project because the last day when i was working on this i couldn't understand shit i just did whatever was told to me on the youtube video. And that's not good practice. So yeah, today's goal is to understand collissions, and for this particular project i have to understand collissions with rectangles because most of my sprites are of rectangle or square shaped.
+
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 50px;">
+
+<div style="width: 500px;">
+Now both the rectangles have a X and a Y co-ordinate, and also a width and a height. And to begin to understand that we must first start with the X axis -
+
+<b style="background-color: yellow; color: black; padding: 0 5px 0 5px; text-align: center;">X - Axis Collision :</b>  Yeah so first we have to check if these two squares <b>overlap</b> each other on the X Axis. And to do that we can check if - The right side of the red square is greater than or equal to the X position of the blue square. And if yes, then they are overlapping on the X Axis. But we also need to make sure that the X position of the RED SQUARE is less than the RIGHT SIDE of the BLUE SQUARE.
+And this is what the code would look like : <br>
+<img src="documentation-images/Screenshot_20251124_200526.jpeg" style="width: 500px;">
+And this same checking has to be done for the Y-Axis but this time taking Height with Y-Axis instead of the width. And this is what the function would look like :
+<img src="documentation-images/Screenshot_20251124_201859.jpeg" style="width: 500px;">
+</div>
+
+<div>
+<img src="documentation-images/Screenshot_20251124_193145.jpeg" style="width: 500px;">
+</div>
+
+</div>
+
+</section>
