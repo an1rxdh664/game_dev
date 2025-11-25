@@ -21,14 +21,14 @@ New updates are pushed almost <strong>every day</strong> as major systems are be
   <li>Fundamental movement & rendering logic (early stage)</li>
   <li>Basic sprite placeholders</li>
   <li>Core engine groundwork</li>
+  <li>Player animations</li>
+  <li>Collision detection</li>
 </ul>
 
 <hr>
 
 <h2>🔧 What’s Being Worked On</h2>
 <ul>
-  <li>Player animations</li>
-  <li>Collision detection</li>
   <li>Enemy and NPC behavior</li>
   <li>Map expansion</li>
   <li>Inventory & UI elements</li>
