@@ -14,21 +14,6 @@ for(let i = 0; i < collisions.length; i += 70) {
     // and then pushes that sliced array into the collisionsMap array.
 }
 
-class Boundary{
-    static width = 48;
-    static height = 48;
-    constructor({position}){
-        this.position = position;
-        this.width = 48
-        this.height = 48 
-    }
-
-    draw(){
-        context.fillStyle = 'red';
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
-}
-
 const boundaries = [];
 
 const offset = {
@@ -53,9 +38,20 @@ collisionsMap.forEach((row, i) => {
 const image = new Image();
 image.src = './images/game_map.png';
 
-const playerImage = new Image();
-playerImage.src = './images/playerDown.png';
+const foregroundImage = new Image();
+foregroundImage.src = './images/foregroundObjects.png';
 
+const playerDownImage = new Image();
+playerDownImage.src = './images/playerDown.png';
+
+const playerUpImage = new Image();
+playerUpImage.src = './images/playerUp.png';
+
+const playerLeftImage = new Image();
+playerLeftImage.src = './images/playerLeft.png';
+
+const playerRightImage = new Image();
+playerRightImage.src = './images/playerRight.png';
 
 
 // playerImage.onload = () => {
@@ -64,42 +60,22 @@ playerImage.src = './images/playerDown.png';
 
 // Player movement through keys
 
-class Sprite{
-    constructor({position, velocity, image, frames = { max: 1 }}){
-        this.position = position;
-        this.image = image;
-        this.frames = frames;
 
-        this.image.onload = () => {
-            this.width = this.image.width / this.frames.max;
-            this.height = this.image.height;
-        }
-    }
-
-    draw() {
-        context.drawImage(this.image,
-            0,
-            0,
-            this.image.width / this.frames.max,
-            this.image.height,
-
-            this.position.x,
-            this.position.y,
-
-            this.image.width / this.frames.max,
-            this.image.height
-        );
-    }
-}
 
 const player = new Sprite({
     position: {
         x: canvas.width / 2 - (192 / 3) / 1.75,
         y: canvas.height / 2 - 1 / 2
     },
-    image: playerImage,
+    image: playerDownImage,
     frames: {
         max: 4
+    },
+    sprites: {
+        up: playerUpImage,
+        left: playerLeftImage,
+        right: playerRightImage,
+        down: playerDownImage
     }
 })
 
@@ -111,6 +87,14 @@ const background = new Sprite({
     image: image
 })
 
+const foreground = new Sprite({
+    position: {
+        x: offset.x,
+        y: offset.y
+    },
+    image: foregroundImage
+})
+
 const keys = {
     w: {pressed: false},
     a: {pressed: false},
@@ -119,7 +103,7 @@ const keys = {
 }
 // this object is made to listen to the key pressed by the player and by default set the pressed property to be false.
 
-const movables = [background, ...boundaries];
+const movables = [background, ...boundaries, foreground];
 
 function rectangularCollisions({rectangle1, rectangle2}){
     return(rectangle1.position.x + rectangle1.width >= rectangle2.position.x && 
@@ -142,11 +126,16 @@ function animate(){
 
     player.draw();
     
+    foreground.draw();
+
     // now to animate our playerImage recursively, i have to shift the image.onload() function into my animate function
 
     
     let moving = true;
+    player.moving = false;
     if(keys.w.pressed && lastKey === 'w') {
+        player.moving = true;
+        player.image = player.sprites.up;
         for(let i=0;i < boundaries.length;i++){
             const boundary = boundaries[i];
             if(rectangularCollisions({
@@ -168,17 +157,73 @@ function animate(){
             })
         }
     } else if(keys.a.pressed && lastKey === 'a') {
-        movables.forEach((movable) => {
-            movable.position.x += 3
-        })
+        player.moving = true;
+        player.image = player.sprites.left;
+        for(let i=0;i < boundaries.length;i++){
+            const boundary = boundaries[i];
+            if(rectangularCollisions({
+                rectangle1: player,
+                rectangle2: {...boundary, position: {
+                    x: boundary.position.x + 3,
+                    y: boundary.position.y
+                }}
+            })){
+                console.log('Colliding');
+                moving = false;
+                break;
+            }
+        }
+        if(moving){
+            movables.forEach((movable) => {
+                movable.position.x += 3
+            })
+        }
     } else if(keys.s.pressed && lastKey === 's') {
-        movables.forEach((movable) => {
-            movable.position.y -= 3
-        })
+        player.moving = true;
+        player.image = player.sprites.down;
+        for(let i=0;i < boundaries.length;i++){
+            const boundary = boundaries[i];
+            if(rectangularCollisions({
+                rectangle1: player,
+                rectangle2: {...boundary, position: {
+                    x: boundary.position.x,
+                    y: boundary.position.y - 3
+                }}
+            })){
+                console.log('Colliding');
+                moving = false;
+                break;
+            }
+        }
+
+        if(moving){
+            movables.forEach((movable) => {
+                movable.position.y -= 3
+            })
+        }
     } else if(keys.d.pressed && lastKey === 'd') {
-        movables.forEach((movable) => {
-            movable.position.x -= 3
-        })
+        player.moving = true;
+        player.image = player.sprites.right;
+        for(let i=0;i < boundaries.length;i++){
+            const boundary = boundaries[i];
+            if(rectangularCollisions({
+                rectangle1: player,
+                rectangle2: {...boundary, position: {
+                    x: boundary.position.x - 3,
+                    y: boundary.position.y
+                }}
+            })){
+                console.log('Colliding');
+                moving = false;
+                break;
+            }
+        }
+
+        if(moving) {
+            movables.forEach((movable) => {
+                movable.position.x -= 3
+            })
+        }
     }
     // these if else statements takes care of the background position when keys are being pressed
 }
