@@ -24,7 +24,7 @@ class Boundary{
     }
 
     draw(){
-        context.fillStyle = 'red';
+        context.fillStyle = 'rgba(255, 0, 0, 0.0)';
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
@@ -168,17 +168,67 @@ function animate(){
             })
         }
     } else if(keys.a.pressed && lastKey === 'a') {
-        movables.forEach((movable) => {
-            movable.position.x += 3
-        })
+        for(let i=0;i < boundaries.length;i++){
+            const boundary = boundaries[i];
+            if(rectangularCollisions({
+                rectangle1: player,
+                rectangle2: {...boundary, position: {
+                    x: boundary.position.x + 3,
+                    y: boundary.position.y
+                }}
+            })){
+                console.log('Colliding');
+                moving = false;
+                break;
+            }
+        }
+        if(moving){
+            movables.forEach((movable) => {
+                movable.position.x += 3
+            })
+        }
     } else if(keys.s.pressed && lastKey === 's') {
-        movables.forEach((movable) => {
-            movable.position.y -= 3
-        })
+        for(let i=0;i < boundaries.length;i++){
+            const boundary = boundaries[i];
+            if(rectangularCollisions({
+                rectangle1: player,
+                rectangle2: {...boundary, position: {
+                    x: boundary.position.x,
+                    y: boundary.position.y - 3
+                }}
+            })){
+                console.log('Colliding');
+                moving = false;
+                break;
+            }
+        }
+
+        if(moving){
+            movables.forEach((movable) => {
+                movable.position.y -= 3
+            })
+        }
     } else if(keys.d.pressed && lastKey === 'd') {
-        movables.forEach((movable) => {
-            movable.position.x -= 3
-        })
+        for(let i=0;i < boundaries.length;i++){
+            const boundary = boundaries[i];
+            if(rectangularCollisions({
+                rectangle1: player,
+                rectangle2: {...boundary, position: {
+                    x: boundary.position.x - 3,
+                    y: boundary.position.y
+                }}
+            })){
+                console.log('Colliding');
+                moving = false;
+                break;
+            }
+        }
+
+        if(moving) {
+            movables.forEach((movable) => {
+                movable.position.x -= 3
+            })
+        }
     }
     // these if else statements takes care of the background position when keys are being pressed
 }
