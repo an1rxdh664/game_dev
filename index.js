@@ -129,8 +129,6 @@ function rectangularCollisions({rectangle1, rectangle2}){
     );
 }
 
-// checking another branch changes.
-
 // now to animate our player image we initialise a function
 function animate(){
     
