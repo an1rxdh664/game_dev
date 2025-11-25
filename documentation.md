@@ -190,4 +190,23 @@ And this same checking has to be done for the Y-Axis but this time taking Height
 
 </div>
 
+<div>
+So today, continuing day 6 of this project and i couldn't document all the things i have done from morning till now, so i have completed the player-to-map bounday collission, so the player will now collide with respective boundaries in the map, and i have also added foreground objects to give some depth to my game, like the player moving under trees bushes and etc.
+
+Also i have shifted all my classes from my index.js file to a new separate file for better readability.
+
+Right now i am working on adding the animations to player movement. And i wanted to write all the stuff down before starting to work on that.
+
+So this is what the code looks like before changing anything :
+
+The second argument (0) in the drawImage() method is the X Co-ordinate of our player image png. And that value will have to change from 0 to 48 to 96 and to 144 and then again back to 0. And if you wonder why 48 ? That is because our main image is 192 * 68 pixels and if we divide 192 by 4 we get 48. So that's why we want to push our X crop to the right by 48 pixels for each frame we are rendering.
+<div>
+<img src="documentation-images/Screenshot_20251125_160643.jpeg" style="width: 500px;">
+</div>
+
+
+
+
+</div>
+
 </section>
