@@ -203,10 +203,27 @@ The second argument (0) in the drawImage() method is the X Co-ordinate of our pl
 <div>
 <img src="documentation-images/Screenshot_20251125_160643.jpeg" style="width: 500px;">
 </div>
+</div>
+</section>
+
+<section>
+<h3 style="text-align: center; background-color: grey; color: black;"><b>Day - 7 (30-11-25) :</b></h3>
+<h2 style="text-align: center;">Creating the battle zones</h2>
+
+<h4>
+    Well actually i have already done this yesterday i just faced some github commit issues and all the progress i made yesterday got lost and i got irritated so i just stopped everything and went to sleep. But today i am back working on this proejct. And i have pretty much done everything that i had done yesterday which was to make the battle zone get detected when a player enters them and is moving inside them
+</h4>
 
 
+<div style="display: flex; flex-direction: row;">
+<h4 style="width: 600px;">
+    So the way i have done this is pretty much same like we rendered the collision boundaries of our map, I just exported my map from tiled as a JSON file and extracted my Battle Zones layer this time and imported it into my project. And then created a separate array of the battle zone map area consisting of sub arrays each containing 70 elements inside them and then i finally created a array of battleZones which only consisted the sub arrays that had the value of 1025, and then i drawed them on my map. <br><br><span style="background-color: yellow; color: black; ">The only part i want to highlight from them is this :</span> This part of block ensures that our battle zone collision will only be logged only when the player is moving through it because we want the battle to be activated only when the player is moving and not sitting idle. Just like the original pokemon games.
+</h4>
 
+<img src="documentation-images/Screenshot_20251130_194101.jpeg" style="width: 500;">
 
 </div>
+
+
 
 </section>
