@@ -14,6 +14,11 @@ for(let i = 0; i < collisions.length; i += 70) {
     // and then pushes that sliced array into the collisionsMap array.
 }
 
+const battleZonesMap = [];
+for(let i = 0; i < battleZonesData.length; i += 70) {
+    battleZonesMap.push(battleZonesData.slice(i, i + 70));
+}
+
 const boundaries = [];
 
 const offset = {
@@ -35,6 +40,23 @@ collisionsMap.forEach((row, i) => {
         }
     })
 })
+
+const battleZones = [];
+battleZonesMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+        if(symbol === 1025){
+            battleZones.push(
+                new Boundary({
+                    position: {
+                        x: j * Boundary.width + offset.x,
+                        y: i * Boundary.height + offset.y
+                    }
+                })
+            )
+        }
+    })
+})
+
 const image = new Image();
 image.src = './images/game_map.png';
 
@@ -103,7 +125,7 @@ const keys = {
 }
 // this object is made to listen to the key pressed by the player and by default set the pressed property to be false.
 
-const movables = [background, ...boundaries, foreground];
+const movables = [background, ...boundaries, foreground, ...battleZones];
 
 function rectangularCollisions({rectangle1, rectangle2}){
     return(rectangle1.position.x + rectangle1.width >= rectangle2.position.x && 
@@ -124,12 +146,28 @@ function animate(){
         boundary.draw();        
     })
 
+    battleZones.forEach((battleZone) => {
+        battleZone.draw();
+    })
+
     player.draw();
     
     foreground.draw();
 
     // now to animate our playerImage recursively, i have to shift the image.onload() function into my animate function
 
+    if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed){
+        for(let i=0;i < battleZones.length;i++){
+            const battleZone = battleZones[i];
+            if(rectangularCollisions({
+                rectangle1: player,
+                rectangle2: battleZone
+            })){
+                console.log("moving inside battle zone")
+                break;
+            }
+        }
+    }
     
     let moving = true;
     player.moving = false;
@@ -145,7 +183,6 @@ function animate(){
                     y: boundary.position.y + 3
                 }}
             })){
-                console.log('Colliding');
                 moving = false;
                 break;
             }
@@ -168,7 +205,6 @@ function animate(){
                     y: boundary.position.y
                 }}
             })){
-                console.log('Colliding');
                 moving = false;
                 break;
             }
@@ -190,7 +226,6 @@ function animate(){
                     y: boundary.position.y - 3
                 }}
             })){
-                console.log('Colliding');
                 moving = false;
                 break;
             }
@@ -213,7 +248,6 @@ function animate(){
                     y: boundary.position.y
                 }}
             })){
-                console.log('Colliding');
                 moving = false;
                 break;
             }
