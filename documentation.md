@@ -223,7 +223,37 @@ The second argument (0) in the drawImage() method is the X Co-ordinate of our pl
 <img src="documentation-images/Screenshot_20251130_194101.jpeg" style="width: 500;">
 
 </div>
+</section>
+
+<section>
+<h3 style="text-align: center; background-color: grey; color: black;"><b>Day - 8 (01-12-25) :</b></h3>
+<h2 style="text-align: center;">Completing the Battle zone detection and transitions</h2>
+
+<div style="display: flex; flex-direction: row; gap: 50px;">
+<img src="documentation-images/Screenshot_20251201_092706.jpeg" style="width: 500px;">
 
 
+<div>
+<p style="width: 500px">The problem now occuring is that even if our player is barely touching the battle zone boundary it is detecting for the collision and this is not good for the actual game as it can cause confusion to the player. I just need to add some king of geometry which will detect for collision only when some part of our player is crossing the boundary.</p>
 
+<div style="display: flex; flex-direction: row; gap: 25px;">
+<img src="documentation-images/Screenshot_20251201_093325.jpeg" style="width: 150px;">
+<p style="width: 325px"><span style="background-color: yellow; color: black; font-weight: 700; padding: 0 2px 0 2px">Here is what i gotta do : </span> We need some geometry collision checker to check if some part of player and some part of the battle zone frame are having an intersection of more than some value (let's say 50%) to detect for collision, the yellow part is the intersection between both the frames. So now we need to check for the area of intersection of both.</p>
+</div>
+</div>
+</div>
+
+<div style="margin-top: 25px; display:">
+<h3>Geometry Fix :</h3>
+<div style="display: flex; flex-direction: row;">
+<img src="documentation-images/Screenshot_20251201_103443.jpeg" style="width: 650px;">
+<h4 style="line-height: 1.5;">This if block in the code ensures three things : 
+<ul>
+<li><span style="background-color: yellow; color: black; font-weight: 700; padding: 0 2px 0 2px">First :</span> It ensures that the battle zone is only activated when the player is moving through it or on it. Not when the player is sitting idle.</li>
+<li><span style="background-color: yellow; color: black; font-weight: 700; padding: 0 2px 0 2px">Second :</span> It checks for the geometry intersection of the player and the battle zone frame. And makes sure it is activated only when the intersection of them both is greater than the half of the player frame.</li>
+<li><span style="background-color: yellow; color: black; font-weight: 700; padding: 0 2px 0 2px">Third :</span> It makes sure that the battle activation does not happen very frequently, it should activate at a 10% chance or in this case (0.01) 1% chance.</li>
+<ul>
+</h4>
+</div>
+</div>
 </section>

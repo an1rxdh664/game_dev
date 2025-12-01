@@ -8,7 +8,7 @@
 
 <h2>⚡ Current Status</h2>
 <p>This project is <strong>under active development</strong>.<br>
-Approximately <strong>15% completed</strong>.<br>
+Approximately <strong>50% completed</strong>.<br>
 New updates are pushed almost <strong>every day</strong> as major systems are being built and refined.</p>
 
 <hr>

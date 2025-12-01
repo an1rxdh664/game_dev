@@ -156,13 +156,27 @@ function animate(){
 
     // now to animate our playerImage recursively, i have to shift the image.onload() function into my animate function
 
+
+    // This if statement checks for the collision between battle zone and player frame
+    // also ensures the collision only happens when the overlapping area is greater by some value
     if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed){
         for(let i=0;i < battleZones.length;i++){
             const battleZone = battleZones[i];
+            const overlappingArea = 
+                (Math.min(
+                    player.position.x + player.width, battleZone.position.x + battleZone.width
+                ) - Math.max(player.position.x, battleZone.position.x)) *
+                (Math.min(
+                    player.position.y + player.height, battleZone.position.y + battleZone.height
+                ) - Math.max(player.position.y, battleZone.position.y))
+        
             if(rectangularCollisions({
-                rectangle1: player,
-                rectangle2: battleZone
-            })){
+                    rectangle1: player,
+                    rectangle2: battleZone
+                }) && 
+                overlappingArea > (player.width * player.height) / 2 &&
+                Math.random() < 0.01
+            ){
                 console.log("moving inside battle zone")
                 break;
             }
