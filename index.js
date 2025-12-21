@@ -135,6 +135,10 @@ function rectangularCollisions({rectangle1, rectangle2}){
     );
 }
 
+const battle = {
+    initiated: false
+}
+
 // now to animate our player image we initialise a function
 function animate(){
     
@@ -155,8 +159,11 @@ function animate(){
     foreground.draw();
 
     // now to animate our playerImage recursively, i have to shift the image.onload() function into my animate function
+    
+    let moving = true;
+    player.moving = false; // line to stop the player movement when a battle is activated.
 
-
+    if(battle.initiated) return;
     // This if statement checks for the collision between battle zone and player frame
     // also ensures the collision only happens when the overlapping area is greater by some value
     if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed){
@@ -177,14 +184,13 @@ function animate(){
                 overlappingArea > (player.width * player.height) / 2 &&
                 Math.random() < 0.01
             ){
-                console.log("moving inside battle zone")
+                console.log("battle initiated");
+                battle.initiated = true;
                 break;
             }
         }
     }
-    
-    let moving = true;
-    player.moving = false;
+
     if(keys.w.pressed && lastKey === 'w') {
         player.moving = true;
         player.image = player.sprites.up;
