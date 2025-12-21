@@ -257,3 +257,23 @@ The second argument (0) in the drawImage() method is the X Co-ordinate of our pl
 </div>
 </div>
 </section>
+
+<section>
+<h3 style="text-align: center; background-color: grey; color: black;"><b>Day - 9 (21-12-25) :</b></h3>
+<h2 style="text-align: center;">Completing the Battle zone detection and transitions - Part 2</h2>
+
+<p>Yeah so i am back working on this project after a very long break, was busy with college exams and that's why put up a pause on this project. But now that they are over i am back here and i will complete this transition part today, i hope so.</p>
+
+<p>So far i have only added the parent div container and the child div container, as you can see in the html file and also included a new CDN file for GSAP, as i got to know that they allow to add animations to our html project easily via javascript.</p>
+
+<p>After that i added some gsap properties to that child div container to create a simple animation whenever a battle is initiated.</p>
+
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 50px;">
+<div><img src="documentation-images/Screenshot_20251221_195716.jpeg" style="width: 350px;"></div>
+<div style="width: 700px;">
+<p>So as you can see that i am applying some different properties to that child div container and i am highlighting this for my own revision and to remember these animation properties.</p>
+<p>The repeat property just repeats the animation 3 times (starting from 0) and the yoyo property just makes the opacity 0 - 1 transition to be smooth in and out, duration sets the duration for each animation and at last the onComplete() property sets the child div to have the full opacity for the transition to the battle screen.</p>
+</div>
+</div>
+
+</section>

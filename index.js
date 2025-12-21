@@ -142,7 +142,7 @@ const battle = {
 // now to animate our player image we initialise a function
 function animate(){
     
-    window.requestAnimationFrame(animate);
+    const animationId = window.requestAnimationFrame(animate);
     // what this does it that it takes a function as an argument and calls it recursively
     background.draw() // calls the draw function from the background object we created.
 
@@ -184,8 +184,28 @@ function animate(){
                 overlappingArea > (player.width * player.height) / 2 &&
                 Math.random() < 0.01
             ){
-                console.log("battle initiated");
+                window.cancelAnimationFrame(animationId);
                 battle.initiated = true;
+                gsap.to('#overlapping-div', {
+                    opacity: 1,
+                    repeat: 3,
+                    yoyo: true,
+                    duration: 0.4,
+                    onComplete(){
+                        gsap.to('#overlapping-div', {
+                            opacity: 1,
+                            duration: 0.4,
+                            onComplete(){
+                                // Activate a new animation loop
+                                animateBattle();
+                                gsap.to('#overlapping-div', {
+                                    opacity: 0,
+                                    duration: 0.4,
+                                })
+                            }
+                        })
+                    }
+                })
                 break;
             }
         }
@@ -283,6 +303,21 @@ function animate(){
 }
 animate()
 // now for our player to be animated everysingle time, we have to call this function recursively until a user asks to stop it
+
+const battleBackgroundImage = new Image();
+battleBackgroundImage.src = './images/battleBackground.png';
+const battleBackground = new Sprite({
+    position: {
+        x: 0,
+        y: 0
+    },
+    image: battleBackgroundImage
+});
+
+function animateBattle(){
+    window.requestAnimationFrame(animateBattle);
+    battleBackground.draw();
+}
 
 lastKey = '';
 window.addEventListener('keydown', (event) => {
