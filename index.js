@@ -91,7 +91,8 @@ const player = new Sprite({
     },
     image: playerDownImage,
     frames: {
-        max: 4
+        max: 4,
+        hold: 10
     },
     sprites: {
         up: playerUpImage,
@@ -161,7 +162,7 @@ function animate(){
     // now to animate our playerImage recursively, i have to shift the image.onload() function into my animate function
     
     let moving = true;
-    player.moving = false; // line to stop the player movement when a battle is activated.
+    player.animate = false; // line to stop the player movement when a battle is activated.
 
     if(battle.initiated) return;
     // This if statement checks for the collision between battle zone and player frame
@@ -212,7 +213,7 @@ function animate(){
     }
 
     if(keys.w.pressed && lastKey === 'w') {
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.up;
         for(let i=0;i < boundaries.length;i++){
             const boundary = boundaries[i];
@@ -234,7 +235,7 @@ function animate(){
             })
         }
     } else if(keys.a.pressed && lastKey === 'a') {
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.left;
         for(let i=0;i < boundaries.length;i++){
             const boundary = boundaries[i];
@@ -255,7 +256,7 @@ function animate(){
             })
         }
     } else if(keys.s.pressed && lastKey === 's') {
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.down;
         for(let i=0;i < boundaries.length;i++){
             const boundary = boundaries[i];
@@ -277,7 +278,7 @@ function animate(){
             })
         }
     } else if(keys.d.pressed && lastKey === 'd') {
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.right;
         for(let i=0;i < boundaries.length;i++){
             const boundary = boundaries[i];
@@ -314,10 +315,44 @@ const battleBackground = new Sprite({
     image: battleBackgroundImage
 });
 
+const dragonMonsterImage = new Image();
+dragonMonsterImage.src = './images/draggleSprite.png';
+const dragonMonster = new Sprite({
+    position: {
+        x: 800,
+        y: 100
+    },
+    image: dragonMonsterImage,
+    frames: {
+        max: 4,
+        hold: 30
+    },
+    animate: true
+})
+
+const embyMonsterImage = new Image();
+embyMonsterImage.src = './images/embySprite.png';
+const embyMonster = new Sprite({
+    position: {
+        x: 280,
+        y: 325
+    },
+    image: embyMonsterImage,
+    frames: {
+        max: 4,
+        hold: 30
+    },
+    animate: true
+})
+
 function animateBattle(){
     window.requestAnimationFrame(animateBattle);
     battleBackground.draw();
+    dragonMonster.draw();
+    embyMonster.draw();
 }
+
+// animateBattle();
 
 lastKey = '';
 window.addEventListener('keydown', (event) => {

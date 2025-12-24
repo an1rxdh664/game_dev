@@ -14,7 +14,12 @@ class Boundary{
 }
 
 class Sprite{
-    constructor({position, velocity, image, frames = { max: 1 }, sprites}){
+    constructor({
+        position,
+        image,
+        frames = { max: 1, hold: 10 },
+        sprites,
+        animate = false}){
         this.position = position;
         this.image = image;
         this.frames = {...frames, val: 0, elapsed: 0};
@@ -24,7 +29,7 @@ class Sprite{
             this.height = this.image.height;
         }
 
-        this.moving = false;
+        this.animate = animate;
         this.sprites = sprites;
     }
 
@@ -42,11 +47,11 @@ class Sprite{
             this.image.height
         );
 
-        if(!this.moving) return; // Do nothing when the player is not moving
+        if(!this.animate) return; // Do nothing when the player is not moving
 
         if(this.frames.max > 1) this.frames.elapsed++;
 
-        if(this.frames.elapsed % 10 === 0){
+        if(this.frames.elapsed % this.frames.hold === 0){
             if(this.frames.val < this.frames.max - 1) this.frames.val++;
             else this.frames.val = 0;
         }
