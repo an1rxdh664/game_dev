@@ -91,7 +91,8 @@ const player = new Sprite({
     },
     image: playerDownImage,
     frames: {
-        max: 4
+        max: 4,
+        hold: 10
     },
     sprites: {
         up: playerUpImage,
@@ -135,10 +136,14 @@ function rectangularCollisions({rectangle1, rectangle2}){
     );
 }
 
+const battle = {
+    initiated: false
+}
+
 // now to animate our player image we initialise a function
 function animate(){
     
-    window.requestAnimationFrame(animate);
+    const animationId = window.requestAnimationFrame(animate);
     // what this does it that it takes a function as an argument and calls it recursively
     background.draw() // calls the draw function from the background object we created.
 
@@ -155,8 +160,11 @@ function animate(){
     foreground.draw();
 
     // now to animate our playerImage recursively, i have to shift the image.onload() function into my animate function
+    
+    let moving = true;
+    player.animate = false; // line to stop the player movement when a battle is activated.
 
-
+    if(battle.initiated) return;
     // This if statement checks for the collision between battle zone and player frame
     // also ensures the collision only happens when the overlapping area is greater by some value
     if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed){
@@ -177,16 +185,35 @@ function animate(){
                 overlappingArea > (player.width * player.height) / 2 &&
                 Math.random() < 0.01
             ){
-                console.log("moving inside battle zone")
+                window.cancelAnimationFrame(animationId);
+                battle.initiated = true;
+                gsap.to('#overlapping-div', {
+                    opacity: 1,
+                    repeat: 3,
+                    yoyo: true,
+                    duration: 0.4,
+                    onComplete(){
+                        gsap.to('#overlapping-div', {
+                            opacity: 1,
+                            duration: 0.4,
+                            onComplete(){
+                                // Activate a new animation loop
+                                animateBattle();
+                                gsap.to('#overlapping-div', {
+                                    opacity: 0,
+                                    duration: 0.4,
+                                })
+                            }
+                        })
+                    }
+                })
                 break;
             }
         }
     }
-    
-    let moving = true;
-    player.moving = false;
+
     if(keys.w.pressed && lastKey === 'w') {
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.up;
         for(let i=0;i < boundaries.length;i++){
             const boundary = boundaries[i];
@@ -208,7 +235,7 @@ function animate(){
             })
         }
     } else if(keys.a.pressed && lastKey === 'a') {
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.left;
         for(let i=0;i < boundaries.length;i++){
             const boundary = boundaries[i];
@@ -229,7 +256,7 @@ function animate(){
             })
         }
     } else if(keys.s.pressed && lastKey === 's') {
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.down;
         for(let i=0;i < boundaries.length;i++){
             const boundary = boundaries[i];
@@ -251,7 +278,7 @@ function animate(){
             })
         }
     } else if(keys.d.pressed && lastKey === 'd') {
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.right;
         for(let i=0;i < boundaries.length;i++){
             const boundary = boundaries[i];
@@ -275,8 +302,57 @@ function animate(){
     }
     // these if else statements takes care of the background position when keys are being pressed
 }
-animate()
+// animate()
 // now for our player to be animated everysingle time, we have to call this function recursively until a user asks to stop it
+
+const battleBackgroundImage = new Image();
+battleBackgroundImage.src = './images/battleBackground.png';
+const battleBackground = new Sprite({
+    position: {
+        x: 0,
+        y: 0
+    },
+    image: battleBackgroundImage
+});
+
+const dragonMonsterImage = new Image();
+dragonMonsterImage.src = './images/draggleSprite.png';
+const dragonMonster = new Sprite({
+    position: {
+        x: 800,
+        y: 100
+    },
+    image: dragonMonsterImage,
+    frames: {
+        max: 4,
+        hold: 30
+    },
+    animate: true
+})
+
+const embyMonsterImage = new Image();
+embyMonsterImage.src = './images/embySprite.png';
+const embyMonster = new Sprite({
+    position: {
+        x: 280,
+        y: 325
+    },
+    image: embyMonsterImage,
+    frames: {
+        max: 4,
+        hold: 30
+    },
+    animate: true
+})
+
+function animateBattle(){
+    window.requestAnimationFrame(animateBattle);
+    battleBackground.draw();
+    dragonMonster.draw();
+    embyMonster.draw();
+}
+
+animateBattle();
 
 lastKey = '';
 window.addEventListener('keydown', (event) => {
