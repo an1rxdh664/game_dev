@@ -302,7 +302,7 @@ function animate(){
     }
     // these if else statements takes care of the background position when keys are being pressed
 }
-animate()
+// animate()
 // now for our player to be animated everysingle time, we have to call this function recursively until a user asks to stop it
 
 const battleBackgroundImage = new Image();
@@ -352,7 +352,7 @@ function animateBattle(){
     embyMonster.draw();
 }
 
-// animateBattle();
+animateBattle();
 
 lastKey = '';
 window.addEventListener('keydown', (event) => {
